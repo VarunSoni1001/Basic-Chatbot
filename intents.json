@@ -1,0 +1,49 @@
+{
+    "intents": [
+      {
+        "tag": "greeting",
+        "patterns": ["Hi", "Hello", "Hey"],
+        "responses": ["Hello, how can I help you?", "Hi there, what can I do for you?", "Hey, what do you need help with?"]
+      },
+      {
+        "tag": "goodbye",
+        "patterns": ["Bye", "Goodbye", "See you later"],
+        "responses": ["Goodbye!", "Have a nice day!", "See you later!"]
+      },
+      {
+        "tag": "thanks",
+        "patterns": ["Thank you", "Thanks", "Appreciate it"],
+        "responses": ["You're welcome!", "No problem!", "My pleasure!"]
+      },
+      {
+        "tag": "name",
+        "patterns": ["What's your name?", "What are you called?", "Who are you?"],
+        "responses": ["My name is Chatbot!", "I'm Chatbot!", "You can call me Chatbot!"]
+      },
+      {
+        "tag": "creation",
+        "patterns": ["In which language you are created?"],
+        "responses": ["I am created with Python language."]
+      },
+      {
+        "tag": "age",
+        "patterns": ["How old are you?", "When were you born?", "What is your age?"],
+        "responses": ["I was just created, so I'm very young!", "I don't have an age, I'm a computer program!"]
+      },
+      {
+        "tag": "location",
+        "patterns": ["Where are you located?", "Where are you based?", "Where do you live?"],
+        "responses": ["I exist only in the digital world, so I don't have a physical location!", "I'm everywhere and nowhere at the same time!"]
+      },
+      {
+        "tag": "help",
+        "patterns": ["Can you help me?", "I need help", "What can you do for me?"],
+        "responses": ["Of course, what do you need help with?", "Sure, I'm here to help!", "What can I do to assist you?"]
+      },
+      {
+        "tag": "unknown",
+        "patterns": ["Sorry, I didn't understand", "Could you repeat that?", "I'm not sure what you mean"],
+        "responses": ["I'm sorry, I'm not sure I understand.", "I'm not sure what you're asking.", "Could you rephrase your question?"]
+      }
+    ]
+  }
