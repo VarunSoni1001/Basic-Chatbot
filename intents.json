@@ -44,6 +44,21 @@
         "tag": "unknown",
         "patterns": ["Sorry, I didn't understand", "Could you repeat that?", "I'm not sure what you mean"],
         "responses": ["I'm sorry, I'm not sure I understand.", "I'm not sure what you're asking.", "Could you rephrase your question?"]
+      },
+      {
+        "tag": "open_app",
+        "patterns": ["start chrome", "open chrome", "can you start {o}", "can you open {o}"],
+        "responses": ["Sure, opening {o} now!", "No problem, starting up {o}."]
+      },
+      {
+        "tag": "get_date",
+        "patterns": ["what is the date?", "what is the time?", "what is the date and time?"],
+        "responses": ["Here you go, "]
+      },
+      {
+        "tag": "play_song",
+        "patterns": ["can you play {s}?", "play {s}", "play {s} song"],
+        "responses": ["Playing {s} on Youtube."]
       }
     ]
   }

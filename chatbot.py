@@ -1,7 +1,14 @@
 import random
 import json
+import webbrowser
 import numpy as np
 import pickle
+
+import subprocess
+import os
+
+import datetime
+import pywhatkit
 
 import nltk
 from nltk.stem import WordNetLemmatizer
@@ -48,15 +55,40 @@ def predict_class(sentence):
     return return_list
 
 
+
+def play_song_on_youtube(song_name):
+    pywhatkit.playonyt(song_name)
+
+
 def get_response(intents_list, intents_json):
     if not intents_list:
         return "Sorry, I didn't understand that. Could you please rephrase?"
+
     tag = intents_list[0]['intent']
     list_of_intents = intents_json['intents']
+
     for i in list_of_intents:
         if i['tag'] == tag:
-            result = random.choice(i['responses'])
+
+            if tag == 'open_app':
+                app_name = ' '.join([w for w in clean_up_sentence(message)])
+                # subprocess.run(f'start {app_name}', shell=True)
+                os.popen(app_name)
+                result = random.choice(i['responses']).format(o=app_name)
+
+            elif tag == 'get_date':
+                now = datetime.datetime.now()
+                result = i['responses'][0] + now.strftime("Date: %d-%m-%Y Time: %H:%M:%S")
+
+            elif tag == 'play_song':
+                song_name = ' '.join([w for w in clean_up_sentence(message) if w not in ['play', 'song']])
+                play_song_on_youtube(song_name)
+                result = i['responses'][0].format(s=song_name)
+
+            else:
+                result = random.choice(i['responses'])
             break
+
     return result
 
 
