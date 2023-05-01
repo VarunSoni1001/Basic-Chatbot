@@ -44,7 +44,7 @@ def bag_of_words(sentence):
 
 def predict_class(sentence):
     bow = bag_of_words(sentence)
-    res = model.predict(np.array([bow]))[0]
+    res = model.predict(np.array([bow]), verbose=0)[0]
     ERROR_THRESHOLD = 0.25
     results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
 
@@ -59,10 +59,16 @@ def predict_class(sentence):
 def play_song_on_youtube(song_name):
     pywhatkit.playonyt(song_name)
 
+def search_on_google(search_query):
+    pywhatkit.search(search_query)
+
+def get_info(info_query):
+    pywhatkit.info(info_query, lines=4)
+
 
 def get_response(intents_list, intents_json):
     if not intents_list:
-        return "Sorry, I didn't understand that. Could you please rephrase?"
+        return "Sorry, I didn't understand what you asking for, could you please write again?"
 
     tag = intents_list[0]['intent']
     list_of_intents = intents_json['intents']
@@ -84,6 +90,17 @@ def get_response(intents_list, intents_json):
                 song_name = ' '.join([w for w in clean_up_sentence(message) if w not in ['play', 'song']])
                 play_song_on_youtube(song_name)
                 result = i['responses'][0].format(s=song_name)
+
+            elif tag == 'google_search':
+                search_query = ' '.join([w for w in clean_up_sentence(message)])
+                search_on_google(search_query)
+                result = i['responses'][0].format(q=search_query)
+
+            elif tag == 'info_about':
+                query = ' '.join([w for w in clean_up_sentence(message)])
+                get_info(query)
+                result = i['responses'][0].format(i=query)
+
 
             else:
                 result = random.choice(i['responses'])

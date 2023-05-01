@@ -59,6 +59,16 @@
         "tag": "play_song",
         "patterns": ["can you play {s}?", "play {s}", "play {s} song"],
         "responses": ["Playing {s} on Youtube."]
+      },
+      {
+        "tag": "google_search",
+        "patterns": ["can you search for {q}?", "search on google about {q}", "search {q}", "search about {q}"],
+        "responses": ["Searching {q} on Google"]
+      },
+      {
+        "tag": "info_about",
+        "patterns": ["can you get info for {i}?", "get info about {i}", "give information {i}", "get info for {i}"],
+        "responses": ["Here is what I found for {i}, "]
       }
     ]
   }
