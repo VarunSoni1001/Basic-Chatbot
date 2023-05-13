@@ -1,36 +1,29 @@
 import random
 import json
-import webbrowser
 import numpy as np
 import pickle
-
-import subprocess
 import os
-
 import datetime
 import pywhatkit
-
 import nltk
 from nltk.stem import WordNetLemmatizer
-
+import nltk
 import tensorflow
 from tensorflow import keras
 from keras import models
 from keras.models import load_model
 
-lemmatizer = WordNetLemmatizer()
 intents = json.loads(open('intents.json').read())
-
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
 model = load_model('chatbotModel.h5')
 
+lemmatizer = WordNetLemmatizer()
 
 def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
     sentence_words = [lemmatizer.lemmatize(word) for word in sentence_words]
     return sentence_words
-
 
 def bag_of_words(sentence):
     sentence_words = clean_up_sentence(sentence)
@@ -41,20 +34,16 @@ def bag_of_words(sentence):
                 bag[i] = 1
     return np.array(bag)
 
-
 def predict_class(sentence):
     bow = bag_of_words(sentence)
     res = model.predict(np.array([bow]), verbose=0)[0]
     ERROR_THRESHOLD = 0.25
     results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
-
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []
     for r in results:
         return_list.append({'intent': classes[r[0]], 'probability': str(r[1])})
     return return_list
-
-
 
 def play_song_on_youtube(song_name):
     pywhatkit.playonyt(song_name)
@@ -64,7 +53,6 @@ def search_on_google(search_query):
 
 def get_info(info_query):
     pywhatkit.info(info_query, lines=4)
-
 
 def get_response(intents_list, intents_json):
     if not intents_list:
@@ -78,7 +66,6 @@ def get_response(intents_list, intents_json):
 
             if tag == 'open_app':
                 app_name = ' '.join([w for w in clean_up_sentence(message)])
-                # subprocess.run(f'start {app_name}', shell=True)
                 os.popen(app_name)
                 result = random.choice(i['responses']).format(o=app_name)
 
@@ -101,13 +88,11 @@ def get_response(intents_list, intents_json):
                 get_info(query)
                 result = i['responses'][0].format(i=query)
 
-
             else:
                 result = random.choice(i['responses'])
             break
 
     return result
-
 
 print("Chatbot starting...")
 
